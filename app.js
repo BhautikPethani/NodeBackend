@@ -12,12 +12,15 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 mongoose.connect(database.url);
 var User = require("./models/user");
 require("./models/workspace");
+require("./models/task");
 
 const auth = require("./routes/auth");
 const manageWorkspace = require("./routes/manage-workspace");
+const manageTask = require("./routes/manage-task");
 
 app.use(auth);
 app.use(manageWorkspace);
+app.use(manageTask);
 
 app.get("/", function (req, res) {
   User.find()
@@ -43,6 +46,16 @@ app.post("/allWorkspaces", function (req, res) {
 app.post("/createWorkspace", function (req, res) {
   console.log(req.body);
   res.send("Create Workspaces api called");
+});
+
+app.post("/createTask", function (req, res) {
+  console.log(req.body);
+  res.send("Create Task api called");
+});
+
+app.post("/getTasks", function (req, res) {
+  console.log(req.body);
+  res.send("Get Task api called");
 });
 
 app.get("/login", function (req, res) {
