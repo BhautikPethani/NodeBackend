@@ -53,4 +53,25 @@ router.post("/getTasks", (req, res) => {
     });
 });
 
+router.post("/getTasksForDependant", (req, res) => {
+  const { workspaceID } = req.body;
+  Task.find({ workspaceID: workspaceID }, { taskName: 1, _id: 1 }).then(
+    async (tasks) => {
+      // console.log(savedUser);
+
+      try {
+        if (tasks) {
+          res.send(tasks);
+        } else {
+          return res
+            .status(422)
+            .send({ label: "Opps!", message: "There's no data !!" });
+        }
+      } catch (err) {
+        return res.status(422).send({ label: "Opps!", message: err.message });
+      }
+    }
+  );
+});
+
 module.exports = router;

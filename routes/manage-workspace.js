@@ -16,9 +16,9 @@ router.post("/createWorkspace", async (req, res) => {
 
   try {
     await workspace.save();
-    res.send({ message: "Workspace created successfully" });
+    res.send({ label: "Success", message: "Workspace created successfully" });
   } catch (err) {
-    return res.status(422).send({ error: err.message });
+    return res.status(422).send({ label: "Opps!", message: err.message });
   }
 });
 
