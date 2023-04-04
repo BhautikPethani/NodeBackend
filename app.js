@@ -48,6 +48,11 @@ app.post("/getTasksForDependant", function (req, res) {
   res.send("getTasksForDependant api called");
 });
 
+app.post("/deleteTask", function (req, res) {
+  console.log(req.body);
+  res.send("deleteTask api called");
+});
+
 app.post("/createWorkspace", function (req, res) {
   console.log(req.body);
   res.send("Create Workspaces api called");
