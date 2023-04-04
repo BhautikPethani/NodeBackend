@@ -31,7 +31,9 @@ router.post("/allWorkspaces", (req, res) => {
       if (workspaces) {
         res.send(workspaces);
       } else {
-        return res.status(422).send({ error: "No Workspace Available" });
+        return res
+          .status(422)
+          .send({ label: "Opps!", message: "No Workspace Available" });
       }
     })
     .catch((err) => {

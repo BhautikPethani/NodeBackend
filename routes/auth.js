@@ -8,11 +8,12 @@ router.post("/signUp", (req, res) => {
   const { firstName, lastName, email, password, confirmPassword } = req.body;
 
   var userName = helper.generateUsername(email);
-
   User.findOne({ email: email }).then(async (savedUser) => {
     // console.log(savedUser);
     if (savedUser) {
-      return res.status(422).send({ error: "User already exists" });
+      return res
+        .status(422)
+        .send({ label: "Opps!", message: "User already exists" });
     }
 
     const user = new User({
@@ -26,16 +27,17 @@ router.post("/signUp", (req, res) => {
 
     try {
       await user.save();
-      res.send({ message: "User saved successfully" });
+      res.send({ label: "Success", message: "You're registered successfully" });
     } catch (err) {
-      return res.status(422).send({ error: err.message });
+      return res.status(422).send({ label: "Opps!", message: err.message });
     }
   });
 });
 
-router.get("/login", (req, res) => {
+router.post("/login", (req, res) => {
   const { email, password } = req.body;
 
+  console.log("CALLED");
   User.findOne({ email: email, password: password }).then(async (savedUser) => {
     // console.log(savedUser);
 
@@ -43,10 +45,12 @@ router.get("/login", (req, res) => {
       if (savedUser) {
         res.send(savedUser);
       } else {
-        return res.status(422).send({ error: "Invalid credentials !!" });
+        return res
+          .status(422)
+          .send({ label: "Opps!", message: "Invalid credentials !!" });
       }
     } catch (err) {
-      return res.status(422).send({ error: err.message });
+      return res.status(422).send({ label: "Opps!", message: err.message });
     }
   });
 });
@@ -60,10 +64,12 @@ router.get("/getAllUsernames", (req, res) => {
         if (users) {
           res.send(users);
         } else {
-          return res.status(422).send({ error: "There's no data !!" });
+          return res
+            .status(422)
+            .send({ label: "Opps!", message: "There's no data !!" });
         }
       } catch (err) {
-        return res.status(422).send({ error: err.message });
+        return res.status(422).send({ label: "Opps!", message: err.message });
       }
     }
   );

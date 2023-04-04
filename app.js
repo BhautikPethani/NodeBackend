@@ -58,7 +58,7 @@ app.post("/getTasks", function (req, res) {
   res.send("Get Task api called");
 });
 
-app.get("/login", function (req, res) {
+app.post("/login", function (req, res) {
   console.log(req.body);
   res.send("Sign in api called");
 });
